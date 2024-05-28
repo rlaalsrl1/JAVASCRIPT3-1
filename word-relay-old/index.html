@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>끝말잇기</title>
+</head>
+<body>
+    <div><span id="order">1</span>번째 참가자</div>
+    <div>제시어: <span id ="word"></span></div>
+    <input type="text">
+    <button class="btn">입력</button>
+    <form action="" method="get" id="form">
+        <input type="text" name="name" id="name" required>
+        <input type="email" name="email" id="email" required>
+        <button name="button" type="submit">구독</button>
+        
+    </form>
+    <script>
+        // let start; //시작 지점
+        // window.addEventListener('mousedown' , (event) =>
+        // {
+        //     start = [event.clientX, event.clientY]
+        // })
+        // window.addEventListener('mouseup', (event) =>{
+        //     const end = [event.clientX, event.clientY];
+        //     const diffx = end[0] - start[0];
+        //     const diffy = end[1] - start[1];
+        //     const isUnder45 = Math.abs(diffx) > Math.abs(diffy);
+        //     if(diffx < 0 && isUnder45){
+        //         console.log('왼쪽');
+        //     }else if(diffy > 0 && isUnder45){
+        //         console.log('오른쪽');
+        //     }else if(diffy > 0 && !isUnder45){
+        //         console.log('아래쪽');
+        //     }else if(diffy < 0 && !isUnder45){
+        //         console.log('위쪽');
+        //     }
+        // })
+        // const $button = document.querySelector('button');
+        // $button.addEventListener('contextmenu', (event) =>{
+        //     event.preventDefault();
+        //     console.log('우클릭');
+        // })
+        // $button = document.querySelector('.btn')
+        // // $button.className ='btn1 btn2'
+        // // $button.className ='btn3 btn4'
+        // $button.classList.add('btn1','btn2')
+        // $button.classList.remove('btn2')
+        // $button.classList.replace('btn1',  'btn3')
+        // console.log($button)
+        // console.log(document.querySelector('div').
+        // parentNode)
+        // console.log(document.querySelector('div').
+        // children)
+        //     const $button = document.createElement('button');
+        //     $button.classList.add('login');
+        //     $button.style.fontSize = '15px';
+        //     $button.textContent = '버튼';
+        //     document.body.append($button);
+        const $table = document.createElement('table');
+        document.body.append($table);
+        $table.border =1;
+        for(let i=0;i<4;i++){
+            const $tr = document.createElement('tr');
+            $table.append($tr);
+            for(let j=0;j<4;j++){
+                const $td = document.createElement('td');
+                $td.textContent = '칸';
+                $tr.append($td);
+            }
+        } 
+     </script>
+</body>
+</html>

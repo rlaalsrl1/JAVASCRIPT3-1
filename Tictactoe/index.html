@@ -39,16 +39,16 @@
                 hasWinner = true;
             }
             if (//세로줄 검사
-                rows[cellIndex][0].textContent === turn &&
-                rows[cellIndex][1].textContent === turn &&
-                rows[cellIndex][2].textContent === turn
+                rows[0][cellIndex].textContent === turn &&
+                rows[1][cellIndex].textContent === turn &&
+                rows[2][cellIndex].textContent === turn
             ) {
                 hasWinner = true;
             }
             if (// \대각선 검사
                 rows[0][0].textContent === turn &&
-                rows[0][1].textContent === turn &&
-                rows[0][2].textContent === turn
+                rows[1][1].textContent === turn &&
+                rows[2][2].textContent === turn
             ) {
                 hasWinner = true;
             }

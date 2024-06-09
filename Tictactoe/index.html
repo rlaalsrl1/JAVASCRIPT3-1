@@ -61,16 +61,51 @@
             }
             return hasWinner;
         };
-        const callback = (event) => {
-            if (event.target.textContent !== '') {
+        const computerMove = () => {
+            // 컴퓨터의 움직임을 처리하는 함수
+            const emptyCells = []; // 빈 셀을 저장할 배열
+            rows.forEach(row => {
+                row.forEach(cell => {
+                    if (!cell.textContent) {
+                        // 셀이 비어 있는지 확인
+                        emptyCells.push(cell);
+                    }
+                });
+            });
+
+            const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)]; // 무작위로 빈 셀 선택
+            randomCell.textContent = 'X'; // 선택된 셀에 'X' 표시
+            const hasWinner = checkWinner(randomCell); // 승자 확인
+
+            if (hasWinner) {
+                $result.textContent = `X님이 승리`; // 승자가 있을 경우 결과 표시
+                $table.removeEventListener("click", callback); // 클릭 이벤트 제거
                 return;
             }
-            //빈칸이면
-            event.target.textContent = turn;
-            const hasWinner = checkWinner(event.target);
+
+            const draw = rows.flat().every((cell) => cell.textContent); // 무승부 확인
+            if (draw) {
+                $result.textContent = "무승부"; // 무승부일 경우 결과 표시
+                return;
+            }
+            turn = 'O'; // 턴을 'O'로 변경
+        };
+
+        const callback = (event) => {
+            if (event.target.textContent !== '' || turn === 'X') {
+                return; // 셀이 비어 있지 않거나 현재 턴이 'X'인 경우 무시
+            }
+            event.target.textContent = 'O'; // 클릭된 셀에 'O' 표시
+            const hasWinner = checkWinner(event.target); // 승자 확인
+
             if (hasWinner) {
-                $result.textContent = `${turn}님이  승리`;
-                $table.removeEventListener("click", callback);
+                $result.textContent = `${turn}님이 승리`; // 승자가 있을 경우 결과 표시
+                $table.removeEventListener("click", callback); // 클릭 이벤트 제거
+                return;
+            }
+            const draw = rows.flat().every((cell) => cell.textContent); // 무승부 확인
+            if (draw) {
+                $result.textContent = "무승부"; // 무승부일 경우 결과 표시
                 return;
             }
             // let draw = true;
@@ -81,34 +116,33 @@
             //         }
             //     })
             // })//현재 9칸이 모두 차 있는지를 검사
-            const draw = rows.flat().every((cell) => cell.textContent);
-            if(draw){
-                $result.textContent ="무승부";
-                return;
-            }
+        //현재 턴을 보고 턴을 넘기는 함수
             // if(turn ==="X"){
             //     turn = "O";
             // }else{
             //     turn ="X"
             // }
-            turn = turn === 'X' ? 'O' : 'X';
+        //위 함수의 간략화
+            //turn = turn === 'X' ? 'O' : 'X';
+            turn = 'X'; // 턴을 'X'로 변경
+            setTimeout(computerMove, 500); // 컴퓨터의 턴을 0.5초 지연시킴
 
         }
 
         for (let i = 1; i <= 3; i++) {
-            const $tr = document.createElement('tr');
-            const cells = [];
+            const $tr = document.createElement('tr'); // 행 요소 생성
+            const cells = []; // 셀 배열
             for (let j = 1; j <= 3; j++) {
-                const $td = document.createElement('td');
-                cells.push($td);
-                $tr.appendChild($td);
+                const $td = document.createElement('td'); // 셀 요소 생성
+                cells.push($td); // 셀 배열에 추가
+                $tr.appendChild($td); // 행에 셀 추가
             }
-            rows.push(cells);
-            $table.appendChild($tr);
+            rows.push(cells); // 행 배열에 추가
+            $table.appendChild($tr); // 테이블에 행 추가
         }
-        body.appendChild($table);
-        body.appendChild($result);
-        $table.addEventListener('click', callback);
+        body.appendChild($table); // 바디에 테이블 추가
+        body.appendChild($result); // 바디에 결과 div 추가
+        $table.addEventListener('click', callback); // 테이블에 클릭 이벤트 리스너 추가
         //이벤트 버블링
     </script>
 </body>
